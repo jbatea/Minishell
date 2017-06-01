@@ -17,9 +17,9 @@ int			ft_sizestring(char const *str, char c, int *count)
 	int		len;
 
 	len = 0;
-	while (str[*count] == c && str[*count] != '\0')
+	while (str[*count] && str[*count] == c)
 		(*count)++;
-	while (str[*count] != c && str[*count] != '\0')
+	while (str[*count] && str[*count] != c)
 	{
 		len++;
 		(*count)++;

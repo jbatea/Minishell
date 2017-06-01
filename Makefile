@@ -3,8 +3,9 @@ NAME		=	minishell
 SRC_NAME	=	main.c			\
 			my_utils.c		\
 			my_env.c		\
-			my_builtins.c		\
 			my_cd.c			\
+			my_cmd.c			\
+			my_bin.c			\
 
 SRC		=	$(addprefix srcs/, $(SRC_NAME))
 

@@ -16,7 +16,7 @@ char				**ft_strsplit(char const *s, char c)
 {
 	int		i;
 	int		j;
-	char	**tab;
+	char		**tab;
 	int		count;
 	int		len;
 
@@ -36,6 +36,6 @@ char				**ft_strsplit(char const *s, char c)
 		tab[j][len] = '\0';
 		j++;
 	}
-	tab[i] = NULL;
+	tab[j] = NULL;
 	return (tab);
 }

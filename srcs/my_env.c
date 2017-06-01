@@ -57,7 +57,7 @@ void		my_getenv(char **env)
 	my_minishell(&minishell);
 }
 
-void		my_printenv(t_env *env)
+void		my_printenv(t_env *env, bool *i)
 {
 	while (env)
 	{
@@ -66,5 +66,6 @@ void		my_printenv(t_env *env)
 		(env->key || env->value) ? ft_printf("\n") : 0;
 		env = env->next;
 	}
+	*i = 1;
 }
 

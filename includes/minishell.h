@@ -22,19 +22,18 @@ typedef struct		s_env
 typedef struct		s_minishell
 {
 	t_env		*env;
-	char		*line;
-	char		**tab;
 }			t_minishell;
 
 t_minishell	my_minishell(t_minishell *minishell);
 void		my_exit(char *error);
-void		my_printenv(t_env *env);
+void		my_printenv(t_env *envi, bool *i);
 void		my_getenv(char **env);
 void		my_addenv(t_minishell *minishell, char *env);
 void		my_freeenv(t_minishell *minishell);
-void		my_check_builtin(t_minishell *minishell);
-void		my_cd(t_minishell *minishell);
+void		my_check_cmd(t_minishell *minishell, char **tab);
+void		my_cd(t_minishell *minishell, char **tab, bool *i);
 t_env		*my_env_chr(t_minishell *minishell, char *cmd);
 char		*my_home(t_minishell *minishell);
+bool		my_check_bin(t_minishell *minishell, char **tab);
 
 #endif

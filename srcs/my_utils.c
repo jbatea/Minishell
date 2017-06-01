@@ -30,8 +30,6 @@ void		my_exit(char *error)
 	minishell = my_minishell(NULL);
 	(error) ? ft_printf("%s\n", error) : 0;
 	my_freeenv(&minishell);
-	(minishell.tab) ? ft_tabfree(minishell.tab) : 0;
-	(minishell.line) ? ft_strdel(&(minishell.line)) : 0;
 	exit(EXIT_FAILURE);
 }
 
