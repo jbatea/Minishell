@@ -14,6 +14,8 @@ void	my_pwd_maj(t_minishell *minishell)
 	o_pwd->value = ((pwd && pwd->value) ? ft_strdup(pwd->value) : NULL);
 	(pwd && pwd->value) ? ft_strdel(&(pwd->value)) : 0;
 	pwd->value = ((tmp[0]) ? ft_strdup(tmp) : NULL);
+	my_envjoin(pwd);
+	my_envjoin(o_pwd);
 }
 
 void	my_check_cd(t_minishell *minishell, char *path)

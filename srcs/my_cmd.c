@@ -32,8 +32,9 @@ void	my_setenv(t_minishell *minishell, char **tab, bool *i)
 		tmp = my_env_chr(minishell, key);
 		if (tmp)
 		{
-			ft_strdel(&(tmp->value));
+			(tmp->value) ? ft_strdel(&(tmp->value)) : 0;
 			tmp->value = ft_strdup(tab[1] + ft_strlen(key) + 1);
+			my_envjoin(tmp);
 		}
 		else
 			my_addenv(minishell, tab[1]);
@@ -58,6 +59,7 @@ void	my_unsetenv(t_minishell *minishell, char **tab, bool *i)
 		tmp = my_env_chr(minishell, key);
 		(tmp && tmp->key) ? ft_strdel(&(tmp->key)) : 0;
 		(tmp && tmp->value) ? ft_strdel(&(tmp->value)) : 0;
+		(tmp && tmp->env) ? ft_strdel(&(tmp->env)) : 0;
 		(key) ? ft_strdel(&key) : 0;
 	}
 	*i = 1;
@@ -69,7 +71,7 @@ bool	my_check_builtin(t_minishell *minishell, char **tab)
 
 	i = 0;
 	(!ft_strcmp("echo", tab[0])) ? my_echo(tab, &i) : 0;
-	(!ft_strcmp("env", tab[0])) ? my_printenv(minishell->env, &i) : 0;
+	(!ft_strcmp("env", tab[0])) ? my_env(minishell, tab, &i) : 0;
 	(!ft_strcmp("cd", tab[0])) ? my_cd(minishell, tab, &i) : 0;
 	(!ft_strcmp("setenv", tab[0])) ? my_setenv(minishell, tab, &i) : 0;
 	(!ft_strcmp("unsetenv", tab[0])) ? my_unsetenv(minishell, tab, &i) : 0;

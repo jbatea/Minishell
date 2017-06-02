@@ -1,5 +1,23 @@
 #include "../includes/minishell.h"
 
+void	my_envjoin(t_env *env)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	(env->env) ? ft_strdel(&(env->env)) : 0;
+	if (!env->key && !env->value)
+		return;
+	if (env->key && env->value)
+	{
+		(tmp = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
+		(env->env = ft_strjoin(tmp, env->value)) ? 0 : MALLOC;
+		ft_strdel(&tmp);
+	}
+	else
+		(env->env = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
+}
+
 char	*my_home(t_minishell *minishell)
 {
 	t_env	*tmp;
