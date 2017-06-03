@@ -8,7 +8,8 @@ void	my_replace_path(t_minishell *minishell, char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		if (tab[i][0] == '$' && (env = my_env_chr(minishell, tab[i] + 1)))
+		if (tab[i][0] == '$' &&\
+		(env = my_env_chr(minishell, tab[i] + 1)))
 		{
 			ft_strdel(&(tab[1]));
 			if (env->value)
@@ -66,6 +67,15 @@ void	my_split_cmd(t_minishell *minishell, char *line)
 	(tmp) ? ft_strdel(&tmp) : 0;
 }
 
+void	my_sig_handler(int sign)
+{
+	if (sign == SIGINT)
+	{
+		ft_printf("\n$> ");
+		return ;
+	}
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	minishell;
@@ -78,6 +88,7 @@ int	main(int argc, char **argv, char **env)
 	my_minishell(&minishell);
 	my_getenv(env);
 	minishell = my_minishell(NULL);
+	signal(SIGINT, my_sig_handler);
 	ft_printf("$> ");
 	while (get_next_line(0, &line))
 	{

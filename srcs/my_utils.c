@@ -47,6 +47,7 @@ void		my_exit(char *error)
 
 	minishell = my_minishell(NULL);
 	(error) ? ft_printf("%s\n", error) : 0;
+	(minishell.str_error) ? ft_strdel(&(minishell.str_error)) : 0;
 	my_freeenv(&minishell);
 	exit(EXIT_FAILURE);
 }

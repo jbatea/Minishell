@@ -6,6 +6,8 @@ SRC_NAME	=	main.c			\
 			my_cd.c			\
 			my_cmd.c			\
 			my_bin.c			\
+			my_path.c			\
+			my_handle_env.c			\
 
 SRC		=	$(addprefix srcs/, $(SRC_NAME))
 

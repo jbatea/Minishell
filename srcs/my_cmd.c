@@ -34,12 +34,14 @@ void	my_setenv(t_minishell *minishell, char *tab, bool *i, bool n)
 		{
 			if (n)
 			{
-				(tmp->old_value = ft_strdup(tmp->value)) ? 0 : MALLOC;
+				(tmp->old_value = ft_strdup(tmp->value)) ? 0\
+				: MALLOC;
 				tmp->tmp = true;
 			} 
 			(tmp->value) ? ft_strdel(&(tmp->value)) : 0;
 			tmp->value = ft_strdup(tab + ft_strlen(key) + 1);
 			my_envjoin(tmp);
+			tmp->close = false;
 		}
 		else
 			my_addenv(minishell, tab, n);
@@ -79,7 +81,8 @@ bool	my_check_builtin(t_minishell *minishell, char **tab)
 	(!ft_strcmp("echo", tab[0])) ? my_echo(tab, &i) : 0;
 	(!ft_strcmp("env", tab[0])) ? my_env(minishell, tab, &i) : 0;
 	(!ft_strcmp("cd", tab[0])) ? my_cd(minishell, tab, &i) : 0;
-	(!ft_strcmp("setenv", tab[0])) ? my_setenv(minishell, tab[1], &i, i) : 0;
+	(!ft_strcmp("setenv", tab[0])) ?\
+	my_setenv(minishell, tab[1], &i, i) : 0;
 	(!ft_strcmp("unsetenv", tab[0])) ? my_unsetenv(minishell, tab, &i) : 0;
 	if (!ft_strcmp("exit", tab[0]))
 	{
@@ -92,11 +95,11 @@ bool	my_check_builtin(t_minishell *minishell, char **tab)
 
 void	my_check_cmd(t_minishell *minishell, char **tab)
 {
-	bool	i;
 
-	i = false;
-	i = my_check_builtin(minishell, tab);
-	(!i) ? (i = my_check_bin(minishell, tab)) : 0;
-	if (!i)
+	(minishell->str_error) ? ft_strdel(&(minishell->str_error)) : 0;
+	minishell->error = my_check_builtin(minishell, tab);
+	(!(minishell->error)) ?\
+	(minishell->error = my_check_bin(minishell, tab)) : 0;
+	if (!minishell->error)
 		ft_printf("minishell: command not found: %s\n", tab[0]);
 }
