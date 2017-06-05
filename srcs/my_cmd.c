@@ -87,15 +87,13 @@ bool	my_check_builtin(t_minishell *minishell, char **tab)
 	if (!ft_strcmp("exit", tab[0]))
 	{
 		i = 1;
-		ft_tabfree(&tab);
-		my_exit(NULL);
+		(tab[1]) ? my_exit(NULL, ft_atoi(tab[1])) : my_exit(NULL, 0);
 	}
 	return (i);
 }
 
 void	my_check_cmd(t_minishell *minishell, char **tab)
 {
-
 	(minishell->str_error) ? ft_strdel(&(minishell->str_error)) : 0;
 	minishell->error = my_check_builtin(minishell, tab);
 	(!(minishell->error)) ?\

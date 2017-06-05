@@ -45,9 +45,36 @@ void		my_addenv(t_minishell *minishell, char *env, bool n)
 	}
 }
 
+void	my_empty_env(t_minishell *minishell)
+{
+	char	cwd[BUF_SIZE];
+	char	*tmp;
+
+	ft_bzero(cwd, BUF_SIZE);
+	getcwd(cwd, BUF_SIZE);
+	(tmp = ft_strjoin("PWD=", cwd)) ? 0 : MALLOC;
+	my_addenv(minishell, tmp, false);
+	ft_strdel(&tmp);
+	my_addenv(minishell, "SHLVL=1", false);
+	my_addenv(minishell, "_=./minishell", false);
+}
+
+void	my_update_lvl(t_minishell *minishell)
+{
+	t_env			*env;
+	int				i;
+
+	if (!(env = my_env_chr(minishell, "SHLVL")) || !(env->value))
+		return;
+	i = ft_atoi(env->value) + 1;
+	ft_strdel(&(env->value));
+	env->value = ft_itoa(i);
+	my_envjoin(env);
+}
+
 void		my_getenv(char **env)
 {
-	int		i;
+	int				i;
 	t_minishell 	minishell;
 
 	minishell = my_minishell(NULL);
@@ -57,6 +84,8 @@ void		my_getenv(char **env)
 		my_addenv(&minishell, env[i], false);
 		i++;
 	}
+	my_update_lvl(&minishell);
+	(!i) ? my_empty_env(&minishell) : 0;
 	my_minishell(&minishell);
 }
 

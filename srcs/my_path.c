@@ -7,7 +7,7 @@ char	**my_find_path(t_minishell *minishell)
 
 	path = NULL;
 	env = my_env_chr(minishell, "PATH");
-	if (env->close)
+	if (env && env->close)
 		return (path);
 	if (env && env->value)
 		(path = ft_strsplit(env->value, ':')) ? 0 : MALLOC;
@@ -19,7 +19,7 @@ bool	my_fork_and_exec(char *str, char **tab, char **env)
 	pid_t	pid;
 
 	pid = fork();
-	(pid < 0) ? my_exit("Fork Failed") : 0;
+	(pid < 0) ? my_exit("Fork Failed", 0) : 0;
 	(!pid) ? execve(str, tab, env) : 0;
 	waitpid(pid, 0, 0);
 	return (true);

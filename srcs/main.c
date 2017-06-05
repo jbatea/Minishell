@@ -69,32 +69,52 @@ void	my_split_cmd(t_minishell *minishell, char *line)
 
 void	my_sig_handler(int sign)
 {
-	if (sign == SIGINT)
-	{
-		ft_printf("\n$> ");
-		return ;
-	}
+	(sign == SIGHUP) ? my_exit("minishell: terminal line hangup", 0) : 0;
+	(sign == SIGINT) ? ft_printf("\n$> ") : 0; 
+	(sign == SIGILL) ? my_exit("minishell: illegal hardware instruction", 0) : 0;
+	(sign == SIGTRAP) ? my_exit("minishell: trace trap", 0) : 0;
+	(sign == SIGABRT) ? my_exit("minishell: abort", 0) : 0;
+	(sign == SIGEMT) ? my_exit("minishell: EMT instruction", 0) : 0;
+	(sign == SIGFPE) ? my_exit("minishell: floating point exception", 0) : 0;
+	(sign == SIGKILL) ? my_exit("minishell: kill program", 0) : 0;
+	(sign == SIGBUS) ? my_exit("minishell: bus error", 0) : 0;
+	(sign == SIGSEGV) ? my_exit("minishell: segmentation fault", 0) : 0;
+	(sign == SIGSYS) ? my_exit("minishell: invalid system call", 0) : 0;
+	(sign == SIGPIPE) ? my_exit("minishell: write on a pipe with no reader", 0) : 0;
+	(sign == SIGALRM) ? my_exit("minishell: real-time timer expired", 0) : 0;
+	(sign == SIGXCPU) ? my_exit("minishell: cpu limit exceeded", 0) : 0;
+	(sign == SIGXFSZ) ? my_exit("minishell: file size limit exceeded", 0) : 0;
+	(sign == SIGVTALRM) ? my_exit("minishell: virtual time alarm", 0) : 0;
+	(sign == SIGPROF) ? my_exit("minishell: profile signal", 0) : 0;
+	(sign == SIGUSR1) ? my_exit("minishell: User defined signal 1", 0) : 0;
+	(sign == SIGUSR2) ? my_exit("minishell: User defined signal 2", 0) : 0;
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	minishell;
 	char		*line;
+	int			i;
 
 	(void)argc;
 	(void)argv;
 	line = NULL;
+	i = 0;
 	ft_bzero(&minishell, sizeof(minishell));
 	my_minishell(&minishell);
 	my_getenv(env);
 	minishell = my_minishell(NULL);
-	signal(SIGINT, my_sig_handler);
+	while (i < NB_SIGNAL)
+	{
+		(i != 18 && i != 19) ? signal(i, my_sig_handler) : 0;
+		i++;
+	}
 	ft_printf("$> ");
 	while (get_next_line(0, &line))
 	{
 		(line) ? my_split_cmd(&minishell, line) : 0;
 		ft_printf("$> ");
 	}
-	my_exit(NULL);
+	my_exit(NULL, 0);
 	return (0);
 }

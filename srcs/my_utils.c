@@ -22,7 +22,7 @@ char	*my_home(t_minishell *minishell)
 {
 	t_env	*tmp;
 	
-	if ((tmp = my_env_chr(minishell, "HOME")))
+	if ((tmp = my_env_chr(minishell, "HOME")) && tmp->value)
 		return (tmp->value);
 	return ("");
 }
@@ -41,7 +41,7 @@ t_env	*my_env_chr(t_minishell *minishell, char *cmd)
 	return (NULL);
 }
 
-void		my_exit(char *error)
+void		my_exit(char *error, int n)
 {
 	t_minishell	minishell;
 
@@ -49,7 +49,7 @@ void		my_exit(char *error)
 	(error) ? ft_printf("%s\n", error) : 0;
 	(minishell.str_error) ? ft_strdel(&(minishell.str_error)) : 0;
 	my_freeenv(&minishell);
-	exit(EXIT_FAILURE);
+	(n) ? exit((n % 256)) : exit(0);
 }
 
 t_minishell	my_minishell(t_minishell *minishell)

@@ -1,4 +1,4 @@
-#ifndef MINSIHELL_H
+#ifndef MINISHELL_H
 #define MINISHELL_H
 			/*Includes*/
 
@@ -11,8 +11,17 @@
 #include <stdbool.h>
 #include "libft.h"
 
-#define MALLOC		my_exit("Malloc Failed")
+#define MALLOC		my_exit("Malloc Failed", 0)
 #define BUF_SIZE	256
+#define NB_SIGNAL	32
+
+#define SIGEMT 7
+#define SIGBUS 10
+#define SIGSYS 12
+#define SIGXCPU 24
+#define SIGXFSZ 25
+#define SIGVTALRM 26
+#define SIGPROF 27
 
 typedef struct		s_env
 {
@@ -33,7 +42,7 @@ typedef struct		s_minishell
 }			t_minishell;
 
 t_minishell	my_minishell(t_minishell *minishell);
-void		my_exit(char *error);
+void		my_exit(char *error, int n);
 void		my_env(t_minishell *minishell, char **tab, bool *i);
 void		my_getenv(char **env);
 void		my_open_env(t_minishell *minishell);
