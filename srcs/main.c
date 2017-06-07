@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:17:01 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:41:18 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void	my_replace_path(t_minishell *minishell, char **tab)
+void		my_replace_path(t_minishell *minishell, char **tab)
 {
 	t_env	*env;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (tab[i])
@@ -19,9 +31,9 @@ void	my_replace_path(t_minishell *minishell, char **tab)
 	}
 }
 
-void	my_split(t_minishell *minishell, char *tmp)
+void		my_split(t_minishell *minishell, char *tmp)
 {
-	char		**tab;
+	char	**tab;
 
 	tab = NULL;
 	(tab = ft_strsplit(tmp, ' ')) ? 0 : MALLOC;
@@ -30,11 +42,11 @@ void	my_split(t_minishell *minishell, char *tmp)
 	(tab) ? ft_tabfree(&tab) : 0;
 }
 
-void	my_parse_cmd(t_minishell *minishell, char *line)
+void		my_parse_cmd(t_minishell *minishell, char *line)
 {
 	int		i;
-	char		*tmp;
-	char		**tab;
+	char	*tmp;
+	char	**tab;
 
 	i = 0;
 	tmp = NULL;
@@ -51,7 +63,7 @@ void	my_parse_cmd(t_minishell *minishell, char *line)
 	(tab) ? ft_tabfree(&tab) : 0;
 }
 
-void	my_split_cmd(t_minishell *minishell, char *line)
+void		my_split_cmd(t_minishell *minishell, char *line)
 {
 	char		*tmp;
 
@@ -59,7 +71,7 @@ void	my_split_cmd(t_minishell *minishell, char *line)
 	(tmp = ft_strtrim(line)) ? 0 : MALLOC;
 	(line) ? ft_strdel(&line) : 0;
 	if (!tmp || !ft_strcmp("", tmp))
-		return;
+		return ;
 	if (ft_strchr(tmp, ';'))
 		my_parse_cmd(minishell, tmp);
 	else
@@ -67,30 +79,7 @@ void	my_split_cmd(t_minishell *minishell, char *line)
 	(tmp) ? ft_strdel(&tmp) : 0;
 }
 
-void	my_sig_handler(int sign)
-{
-	(sign == SIGHUP) ? my_exit("minishell: terminal line hangup", 0) : 0;
-	(sign == SIGINT) ? ft_printf("\n$> ") : 0; 
-	(sign == SIGILL) ? my_exit("minishell: illegal hardware instruction", 0) : 0;
-	(sign == SIGTRAP) ? my_exit("minishell: trace trap", 0) : 0;
-	(sign == SIGABRT) ? my_exit("minishell: abort", 0) : 0;
-	(sign == SIGEMT) ? my_exit("minishell: EMT instruction", 0) : 0;
-	(sign == SIGFPE) ? my_exit("minishell: floating point exception", 0) : 0;
-	(sign == SIGKILL) ? my_exit("minishell: kill program", 0) : 0;
-	(sign == SIGBUS) ? my_exit("minishell: bus error", 0) : 0;
-	(sign == SIGSEGV) ? my_exit("minishell: segmentation fault", 0) : 0;
-	(sign == SIGSYS) ? my_exit("minishell: invalid system call", 0) : 0;
-	(sign == SIGPIPE) ? my_exit("minishell: write on a pipe with no reader", 0) : 0;
-	(sign == SIGALRM) ? my_exit("minishell: real-time timer expired", 0) : 0;
-	(sign == SIGXCPU) ? my_exit("minishell: cpu limit exceeded", 0) : 0;
-	(sign == SIGXFSZ) ? my_exit("minishell: file size limit exceeded", 0) : 0;
-	(sign == SIGVTALRM) ? my_exit("minishell: virtual time alarm", 0) : 0;
-	(sign == SIGPROF) ? my_exit("minishell: profile signal", 0) : 0;
-	(sign == SIGUSR1) ? my_exit("minishell: User defined signal 1", 0) : 0;
-	(sign == SIGUSR2) ? my_exit("minishell: User defined signal 2", 0) : 0;
-}
-
-int	main(int argc, char **argv, char **env)
+int			main(int argc, char **argv, char **env)
 {
 	t_minishell	minishell;
 	char		*line;

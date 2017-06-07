@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:32:31 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:34:50 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void	my_envjoin(t_env *env)
+void			my_envjoin(t_env *env)
 {
 	char	*tmp;
 
 	tmp = NULL;
 	(env->env) ? ft_strdel(&(env->env)) : 0;
 	if (!env->key && !env->value)
-		return;
+		return ;
 	if (env->key && env->value)
 	{
 		(tmp = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
@@ -18,16 +30,16 @@ void	my_envjoin(t_env *env)
 		(env->env = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
 }
 
-char	*my_home(t_minishell *minishell)
+char			*my_home(t_minishell *minishell)
 {
 	t_env	*tmp;
-	
+
 	if ((tmp = my_env_chr(minishell, "HOME")) && tmp->value)
 		return (tmp->value);
 	return ("");
 }
 
-t_env	*my_env_chr(t_minishell *minishell, char *cmd)
+t_env			*my_env_chr(t_minishell *minishell, char *cmd)
 {
 	t_env	*tmp;
 
@@ -41,7 +53,7 @@ t_env	*my_env_chr(t_minishell *minishell, char *cmd)
 	return (NULL);
 }
 
-void		my_exit(char *error, int n)
+void			my_exit(char *error, int n)
 {
 	t_minishell	minishell;
 
@@ -52,11 +64,10 @@ void		my_exit(char *error, int n)
 	(n) ? exit((n % 256)) : exit(0);
 }
 
-t_minishell	my_minishell(t_minishell *minishell)
+t_minishell		my_minishell(t_minishell *minishell)
 {
 	static	t_minishell	save;
 
 	save = ((minishell) ? *minishell : save);
 	return (save);
 }
-

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_handle_env.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:34:55 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:43:36 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void		my_freeenv(t_minishell *minishell)
+void				my_freeenv(t_minishell *minishell)
 {
-	t_env	*tmp;
-	t_env	*ptmp;
+	t_env			*tmp;
+	t_env			*ptmp;
 
 	tmp = minishell->env;
 	while (tmp)
@@ -18,11 +30,11 @@ void		my_freeenv(t_minishell *minishell)
 	}
 }
 
-void		my_addenv(t_minishell *minishell, char *env, bool n)
+void				my_addenv(t_minishell *minishell, char *env, bool n)
 {
-	t_env	*tmp;
-	t_env	*new;
-	int	i;
+	t_env			*tmp;
+	t_env			*new;
+	int				i;
 
 	(new = ft_memalloc(sizeof(t_env))) ? 0 : MALLOC;
 	if ((i = ft_strchr_cnt(env, '=')) > 0)
@@ -45,37 +57,10 @@ void		my_addenv(t_minishell *minishell, char *env, bool n)
 	}
 }
 
-void	my_empty_env(t_minishell *minishell)
-{
-	char	cwd[BUF_SIZE];
-	char	*tmp;
-
-	ft_bzero(cwd, BUF_SIZE);
-	getcwd(cwd, BUF_SIZE);
-	(tmp = ft_strjoin("PWD=", cwd)) ? 0 : MALLOC;
-	my_addenv(minishell, tmp, false);
-	ft_strdel(&tmp);
-	my_addenv(minishell, "SHLVL=1", false);
-	my_addenv(minishell, "_=./minishell", false);
-}
-
-void	my_update_lvl(t_minishell *minishell)
-{
-	t_env			*env;
-	int				i;
-
-	if (!(env = my_env_chr(minishell, "SHLVL")) || !(env->value))
-		return;
-	i = ft_atoi(env->value) + 1;
-	ft_strdel(&(env->value));
-	env->value = ft_itoa(i);
-	my_envjoin(env);
-}
-
-void		my_getenv(char **env)
+void				my_getenv(char **env)
 {
 	int				i;
-	t_minishell 	minishell;
+	t_minishell		minishell;
 
 	minishell = my_minishell(NULL);
 	i = 0;
@@ -89,9 +74,9 @@ void		my_getenv(char **env)
 	my_minishell(&minishell);
 }
 
-void	my_clear_env(t_minishell *minishell)
+void				my_clear_env(t_minishell *minishell)
 {
-	t_env	*env;
+	t_env			*env;
 
 	env = minishell->env;
 	while (env)
@@ -108,15 +93,14 @@ void	my_clear_env(t_minishell *minishell)
 				MALLOC;
 				my_envjoin(env);
 			}
-
 		}
 		env = env->next;
 	}
 }
 
-void		my_open_env(t_minishell *minishell)
+void				my_open_env(t_minishell *minishell)
 {
-	t_env	*env;
+	t_env			*env;
 
 	my_clear_env(minishell);
 	env = minishell->env;

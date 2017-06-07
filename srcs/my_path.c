@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_path.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:32:07 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:32:27 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 char	**my_find_path(t_minishell *minishell)
@@ -41,7 +53,7 @@ bool	my_check_path(t_minishell *minishell, char **tab, char **env)
 	bool	ret;
 	char	*tmp;
 	char	*str;
-	int	i;
+	int		i;
 
 	i = 0;
 	tmp = NULL;
@@ -61,4 +73,3 @@ bool	my_check_path(t_minishell *minishell, char **tab, char **env)
 	(path) ? ft_tabfree(&path) : 0;
 	return (ret);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 16:44:21 by jbateau           #+#    #+#             */
-/*   Updated: 2015/12/07 17:29:39 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/07 14:48:28 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char				**ft_strsplit(char const *s, char c)
 {
 	int		i;
 	int		j;
-	char		**tab;
+	char	**tab;
 	int		count;
 	int		len;
 

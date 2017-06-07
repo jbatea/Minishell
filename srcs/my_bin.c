@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_bin.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:16:14 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:16:58 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void		my_printenv(t_minishell *minishell)
@@ -12,10 +24,10 @@ void		my_printenv(t_minishell *minishell)
 	}
 }
 
-int	my_env_len(t_minishell *minishell)
+int			my_env_len(t_minishell *minishell)
 {
 	t_env	*env;
-	int	i;
+	int		i;
 
 	i = 0;
 	env = minishell->env;
@@ -27,9 +39,9 @@ int	my_env_len(t_minishell *minishell)
 	return (i);
 }
 
-char	**my_filltab(t_env *env, int i)
+char		**my_filltab(t_env *env, int i)
 {
-	int	j;
+	int		j;
 	char	**tab;
 
 	j = 0;
@@ -47,10 +59,10 @@ char	**my_filltab(t_env *env, int i)
 	return (tab);
 }
 
-char	**my_env_tab(t_minishell *minishell)
+char		**my_env_tab(t_minishell *minishell)
 {
 	t_env	*env;
-	int	i;
+	int		i;
 	char	**tab;
 
 	tab = NULL;
@@ -62,7 +74,7 @@ char	**my_env_tab(t_minishell *minishell)
 	return (tab);
 }
 
-bool	my_check_bin(t_minishell *minishell, char **tab)
+bool		my_check_bin(t_minishell *minishell, char **tab)
 {
 	bool	ret;
 	char	**env;

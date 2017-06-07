@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:51:03 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:52:49 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ft_printf.h"
 
-void	my_newelem(t_lst *lst, char *str, int i)
+void			my_newelem(t_lst *lst, char *str, int i)
 {
 	t_lst		*new;
 	t_lst		*cur;
@@ -18,9 +30,9 @@ void	my_newelem(t_lst *lst, char *str, int i)
 	}
 }
 
-char	*my_space_display(int n)
+char			*my_space_display(int n)
 {
-	char	*str;
+	char		*str;
 
 	str = NULL;
 	str = ft_strnew(n);
@@ -28,9 +40,9 @@ char	*my_space_display(int n)
 	return (str);
 }
 
-char	*my_pa(va_list pa, char c)
+char			*my_pa(va_list pa, char c)
 {
-	char	*s;
+	char		*s;
 
 	if (c == 's')
 		return (ft_strdup(va_arg(pa, char *)));
@@ -45,10 +57,10 @@ char	*my_pa(va_list pa, char c)
 	return (ft_ltoa(va_arg(pa, long int)));
 }
 
-void	ft_add_arg(char *format, va_list pa, t_lst *lst)
+void			ft_add_arg(char *format, va_list pa, t_lst *lst)
 {
-	int	i;
-	char	*str;
+	int			i;
+	char		*str;
 
 	i = 0;
 	while (format[i] && format[i] != '%')
@@ -74,12 +86,12 @@ void	ft_add_arg(char *format, va_list pa, t_lst *lst)
 	(format[i]) ? ft_add_arg(format + i, pa, lst) : 0;
 }
 
-int	ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
-	va_list pa;
-	int	ret;
-	t_lst	*lst;
-	
+	va_list		pa;
+	int			ret;
+	t_lst		*lst;
+
 	ret = -1;
 	lst = ft_listinit();
 	if (format && lst)
@@ -92,4 +104,3 @@ int	ft_printf(const char *format, ...)
 	}
 	return (ret);
 }
-

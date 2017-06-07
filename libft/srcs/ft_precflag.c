@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:07:13 by jbateau           #+#    #+#             */
-/*   Updated: 2016/03/16 14:07:35 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/07 14:53:24 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char		*ft_precflag(char *str)
 {
 	char	*tmp;
 	char	*cpy;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = ft_strchr_cnt(str, '.');
 	j = i + 1;

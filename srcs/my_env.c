@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   my_env.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/07 14:21:16 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/07 14:21:47 by jbateau          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-void	my_close_env(t_minishell *minishell)
+void		my_close_env(t_minishell *minishell)
 {
 	t_env	*env;
 
@@ -12,7 +24,7 @@ void	my_close_env(t_minishell *minishell)
 	}
 }
 
-int	my_env_args(t_minishell *minishell, char **tab, int i)
+int			my_env_args(t_minishell *minishell, char **tab, int i)
 {
 	bool	n;
 
@@ -36,7 +48,7 @@ int	my_env_args(t_minishell *minishell, char **tab, int i)
 char		**my_cpy_args(char **tab, int i, int k)
 {
 	char	**args;
-	int	j;
+	int		j;
 
 	j = 0;
 	(args = (char **)malloc(sizeof(char *) * (i + 1))) ? 0 : MALLOC;
@@ -52,8 +64,8 @@ char		**my_cpy_args(char **tab, int i, int k)
 
 char		**my_new_args(t_minishell *minishell, char **tab)
 {
-	int	i;
-	int	k;
+	int		i;
+	int		k;
 
 	k = my_env_args(minishell, tab, 1);
 	i = k;
