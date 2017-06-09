@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 15:03:40 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 15:04:07 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 04:05:51 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <stdbool.h>
 # include "libft.h"
 
-# define MALLOC		my_exit("Malloc Failed", 0)
 # define BUF_SIZE	256
 # define NB_SIGNAL	32
 
@@ -50,6 +49,7 @@ typedef struct		s_minishell
 	t_env			*env;
 	bool			error;
 	char			*str_error;
+	bool			display;
 }					t_minishell;
 
 t_minishell			my_minishell(t_minishell *minishell);
@@ -75,5 +75,6 @@ void				my_sig_handler(int sign);
 void				my_echo(char **tab, bool *k);
 void				my_update_lvl(t_minishell *minishell);
 void				my_empty_env(t_minishell *minishell);
+void				my_pwd_maj(t_minishell *minishell, char *s);
 
 #endif

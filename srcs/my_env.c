@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:21:16 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:21:47 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 04:26:32 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		**my_cpy_args(char **tab, int i, int k)
 	(args = (char **)malloc(sizeof(char *) * (i + 1))) ? 0 : MALLOC;
 	while (tab[k])
 	{
-		(args[j] = ft_strdup(tab[k])) ? 0 : MALLOC;
+		args[j] = ft_strdup(tab[k]);
 		k++;
 		j++;
 	}
@@ -102,7 +102,7 @@ void		my_env(t_minishell *minishell, char **tab, bool *i)
 			ft_printf("minishell: command not found: %s\n",\
 			minishell->str_error) : 0;
 			minishell->error = false;
-			ft_strdel(&(minishell->str_error));
+			(minishell->str_error) ? ft_strdel(&(minishell->str_error)) : 0;
 		}
 	}
 }

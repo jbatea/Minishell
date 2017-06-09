@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/04 12:54:38 by jbateau           #+#    #+#             */
-/*   Updated: 2016/02/07 19:34:52 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:03:40 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ char		*ft_strndup(const char *s1, size_t n)
 
 	i = 0;
 	tmp = ft_strnew(n + 2);
-	if (tmp == NULL)
-		return (NULL);
+	(!tmp) ? MALLOC : 0;
 	while (i < n && s1[i])
 	{
 		tmp[i] = s1[i];

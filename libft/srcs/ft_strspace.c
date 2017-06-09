@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strspace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/29 18:37:14 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/09 01:58:49 by jbateau          ###   ########.fr       */
+/*   Created: 2017/06/09 02:15:34 by jbateau           #+#    #+#             */
+/*   Updated: 2017/06/09 02:19:36 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char			*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strspace(char *str)
 {
-	char		*scat;
-	int			i;
-	int			j;
+	int		i;
+	char	*trim;
 
 	i = 0;
-	j = 0;
-	scat = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	(!scat) ? MALLOC : 0;
-	while (s1[i])
+	trim = ft_memalloc(ft_strlen(str) + 1);
+	while (str[i])
 	{
-		scat[i] = s1[i];
+		if (str[i] == '\t' || str[i] == '\n')
+			trim[i] = ' ';
+		else
+			trim[i] = str[i];
 		i++;
 	}
-	while (s2[j])
-	{
-		scat[i] = s2[j];
-		i++;
-		j++;
-	}
-	scat[i] = '\0';
-	return (scat);
+	trim[i] = '\0';
+	return (trim);
 }

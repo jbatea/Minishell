@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:16:14 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:16:58 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 05:22:38 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char		**my_filltab(t_env *env, int i)
 	{
 		if (env->env && !(env->close))
 		{
-			(tab[j] = ft_strdup(env->env)) ? 0 : MALLOC;
+			tab[j] = ft_strdup(env->env);
 			j++;
 		}
 		env = env->next;
@@ -76,8 +76,8 @@ char		**my_env_tab(t_minishell *minishell)
 
 bool		my_check_bin(t_minishell *minishell, char **tab)
 {
-	bool	ret;
-	char	**env;
+	bool		ret;
+	char		**env;
 
 	env = my_env_tab(minishell);
 	ret = my_check_path(minishell, tab, env);
@@ -86,7 +86,7 @@ bool		my_check_bin(t_minishell *minishell, char **tab)
 	{
 		(minishell->str_error) ? ft_strdel(&(minishell->str_error)) :\
 			0;
-		(minishell->str_error = ft_strdup(tab[0])) ? 0 : MALLOC;
+		minishell->str_error = ft_strdup(tab[0]);
 	}
 	(env) ? ft_tabfree(&env) : 0;
 	return (ret);

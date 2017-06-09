@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:32:31 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:34:50 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:11:19 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void			my_envjoin(t_env *env)
 		return ;
 	if (env->key && env->value)
 	{
-		(tmp = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
-		(env->env = ft_strjoin(tmp, env->value)) ? 0 : MALLOC;
+		tmp = ft_strjoin(env->key, "=");
+		env->env = ft_strjoin(tmp, env->value);
 		ft_strdel(&tmp);
 	}
 	else
-		(env->env = ft_strjoin(env->key, "=")) ? 0 : MALLOC;
+		env->env = ft_strjoin(env->key, "=");
 }
 
 char			*my_home(t_minishell *minishell)

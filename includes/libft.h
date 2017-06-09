@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 12:33:01 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:59:30 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:19:33 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <wchar.h>
 # include "ft_printf.h"
 # define BUFF_SIZE 1024
+# define MALLOC		exit(EXIT_FAILURE)
 
 typedef struct		s_list
 {
@@ -117,5 +118,6 @@ int					ft_strrchr_cnt(char *s, char c);
 char				*ft_strlower(char *str);
 int					ft_strcasecmp(const char *s1, const char *s2);
 int					ft_strrcmp(const char *s1, const char *s2);
+char				*ft_strspace(char *str);
 
 #endif

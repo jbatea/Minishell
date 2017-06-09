@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:40:18 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:47:49 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 03:31:35 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void				my_empty_env(t_minishell *minishell)
 
 	ft_bzero(cwd, BUF_SIZE);
 	getcwd(cwd, BUF_SIZE);
-	(tmp = ft_strjoin("PWD=", cwd)) ? 0 : MALLOC;
+	tmp = ft_strjoin("PWD=", cwd);
 	my_addenv(minishell, tmp, false);
 	ft_strdel(&tmp);
 	my_addenv(minishell, "SHLVL=1", false);
@@ -56,10 +56,23 @@ void				my_echo(char **tab, bool *k)
 	*k = 1;
 }
 
+void				my_apply_sigint(int sign)
+{
+	t_minishell minishell;
+
+	minishell = my_minishell(NULL);
+	if (sign == SIGINT)
+	{
+		ft_printf("\n$> ");
+		minishell.display = 1;
+		my_minishell(&minishell);
+	}
+}
+
 void				my_sig_handler(int sign)
 {
+	(sign == SIGINT) ? my_apply_sigint(sign) : 0;
 	(sign == SIGHUP) ? my_exit("minishell: terminal line hangup", 0) : 0;
-	(sign == SIGINT) ? ft_printf("\n$> ") : 0;
 	if (sign == SIGILL)
 		my_exit("minishell: illegal hardware instruction", 0);
 	(sign == SIGTRAP) ? my_exit("minishell: trace trap", 0) : 0;

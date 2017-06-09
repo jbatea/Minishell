@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:23:43 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:42:31 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 04:32:34 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ bool		my_env_exist(t_minishell *minishell, char *key, bool n, char *tab)
 	{
 		if (n)
 		{
-			if (!(tmp->old_value = ft_strdup(tmp->value)))
-				MALLOC;
+			tmp->old_value = ft_strdup(tmp->value);
 			tmp->tmp = true;
 		}
 		(tmp->value) ? ft_strdel(&(tmp->value)) : 0;
@@ -80,6 +79,7 @@ void		my_unsetenv(t_minishell *minishell, char **tab, bool *i)
 bool		my_check_builtin(t_minishell *minishell, char **tab)
 {
 	bool	i;
+	int		n;
 
 	i = 0;
 	(!ft_strcmp("echo", tab[0])) ? my_echo(tab, &i) : 0;
@@ -91,7 +91,14 @@ bool		my_check_builtin(t_minishell *minishell, char **tab)
 	if (!ft_strcmp("exit", tab[0]))
 	{
 		i = 1;
-		(tab[1]) ? my_exit(NULL, ft_atoi(tab[1])) : my_exit(NULL, 0);
+		if (tab[1])
+		{
+			n = ft_atoi(tab[1]);
+			ft_tabfree(&tab);
+			my_exit(NULL, n);
+		}
+		ft_tabfree(&tab);
+		my_exit(NULL, 0);
 	}
 	return (i);
 }
@@ -104,4 +111,5 @@ void		my_check_cmd(t_minishell *minishell, char **tab)
 		(minishell->error = my_check_bin(minishell, tab)) : 0;
 	if (!minishell->error)
 		ft_printf("minishell: command not found: %s\n", tab[0]);
+	(minishell->str_error) ? ft_strdel(&(minishell->str_error)) : 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/29 19:05:30 by jbateau           #+#    #+#             */
-/*   Updated: 2015/12/12 12:05:38 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:01:07 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char		*ft_strtrim(char const *s)
 		while ((s[len] == ' ' || s[len] == '\n' || s[len] == '\t') && (len > 0))
 			len--;
 	if (!(strim = (char *)malloc(sizeof(char) * ((len - i) + 2))))
-		return (NULL);
+		MALLOC;
 	while (i < (len + 1) && s[i])
 	{
 		strim[j] = s[i];

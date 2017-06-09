@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:17:01 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:41:18 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 05:37:07 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ void		my_replace_path(t_minishell *minishell, char **tab)
 		{
 			ft_strdel(&(tab[1]));
 			if (env->value)
-				(tab[1] = ft_strdup(env->value)) ? 0 : MALLOC;
+				tab[1] = ft_strdup(env->value);
 		}
 		i++;
 	}
 }
 
-void		my_split(t_minishell *minishell, char *tmp)
+void		my_split(t_minishell *minishell, char *tmp, bool i)
 {
 	char	**tab;
 
 	tab = NULL;
-	(tab = ft_strsplit(tmp, ' ')) ? 0 : MALLOC;
+	tab = ft_strsplit(tmp, ' ');
+	(tmp && i) ? ft_strdel(&tmp) : 0;
 	my_replace_path(minishell, tab);
 	my_check_cmd(minishell, tab);
 	(tab) ? ft_tabfree(&tab) : 0;
@@ -51,12 +52,13 @@ void		my_parse_cmd(t_minishell *minishell, char *line)
 	i = 0;
 	tmp = NULL;
 	tab = NULL;
-	(tab = ft_strsplit(line, ';')) ? 0 : MALLOC;
+	tab = ft_strsplit(line, ';');
+	(line) ? ft_strdel(&line) : 0;
 	while (tab[i])
 	{
-		(tmp = ft_strtrim(tab[i])) ? 0 : MALLOC;
+		tmp = ft_strtrim(tab[i]);
 		if (ft_strcmp(tmp, ""))
-			my_split(minishell, tmp);
+			my_split(minishell, tmp, false);
 		(tmp) ? ft_strdel(&tmp) : 0;
 		i++;
 	}
@@ -66,17 +68,23 @@ void		my_parse_cmd(t_minishell *minishell, char *line)
 void		my_split_cmd(t_minishell *minishell, char *line)
 {
 	char		*tmp;
+	char		*str;
 
 	tmp = NULL;
-	(tmp = ft_strtrim(line)) ? 0 : MALLOC;
+	str = NULL;
+	str = ft_strtrim(line);
+	tmp = ft_strspace(str);
+	(str) ? ft_strdel(&str) : 0;
 	(line) ? ft_strdel(&line) : 0;
 	if (!tmp || !ft_strcmp("", tmp))
+	{
+		(tmp) ? ft_strdel(&tmp) : 0;
 		return ;
+	}
 	if (ft_strchr(tmp, ';'))
 		my_parse_cmd(minishell, tmp);
 	else
-		my_split(minishell, tmp);
-	(tmp) ? ft_strdel(&tmp) : 0;
+		my_split(minishell, tmp, true);
 }
 
 int			main(int argc, char **argv, char **env)
@@ -102,8 +110,8 @@ int			main(int argc, char **argv, char **env)
 	while (get_next_line(0, &line))
 	{
 		(line) ? my_split_cmd(&minishell, line) : 0;
-		ft_printf("$> ");
+		(!(minishell = my_minishell(NULL)).display) ? ft_printf("$> ") : 0;
+		minishell.display = 0;
 	}
-	my_exit(NULL, 0);
 	return (0);
 }

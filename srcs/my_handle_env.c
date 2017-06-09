@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/07 14:34:55 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:43:36 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:09:17 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void				my_addenv(t_minishell *minishell, char *env, bool n)
 	t_env			*new;
 	int				i;
 
-	(new = ft_memalloc(sizeof(t_env))) ? 0 : MALLOC;
+	new = ft_memalloc(sizeof(t_env));
 	if ((i = ft_strchr_cnt(env, '=')) > 0)
 	{
-		(new->key = ft_strndup(env, i)) ? 0 : MALLOC;
-		(new->value = ft_strdup(env + i + 1)) ? 0 : MALLOC;
+		new->key = ft_strndup(env, i);
+		new->value = ft_strdup(env + i + 1);
 	}
 	else
-		(new->key = ft_strdup(env)) ? 0 : MALLOC;
+		new->key = ft_strdup(env);
 	my_envjoin(new);
 	new->tmp = n;
 	tmp = minishell->env;
@@ -89,8 +89,7 @@ void				my_clear_env(t_minishell *minishell)
 				(env->key) ? ft_strdel(&(env->key)) : 0;
 			else
 			{
-				(env->value = ft_strdup(env->old_value)) ? 0 :\
-				MALLOC;
+				env->value = ft_strdup(env->old_value);
 				my_envjoin(env);
 			}
 		}

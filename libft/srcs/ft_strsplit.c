@@ -6,7 +6,7 @@
 /*   By: jbateau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/01 16:44:21 by jbateau           #+#    #+#             */
-/*   Updated: 2017/06/07 14:48:28 by jbateau          ###   ########.fr       */
+/*   Updated: 2017/06/09 02:00:47 by jbateau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char				**ft_strsplit(char const *s, char c)
 	i = ft_countstring(s, c);
 	j = 0;
 	tab = (char **)malloc(sizeof(char *) * (i + 1));
-	if (tab == NULL)
-		return (NULL);
+	(!tab) ? MALLOC : 0;
 	while (j < i)
 	{
 		len = ft_sizestring(s, c, &count);

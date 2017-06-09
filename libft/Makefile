@@ -6,7 +6,7 @@
 #    By: jbateau <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 14:55:10 by jbateau           #+#    #+#              #
-#    Updated: 2016/04/30 19:02:26 by jbateau          ###   ########.fr        #
+#    Updated: 2017/06/09 02:18:55 by jbateau          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -179,6 +179,7 @@ SRC =	ft_putchar.c \
 		ft_strrchr_cnt.c \
 	ft_strlower.c \
 	ft_strcasecmp.c \
+	ft_strspace.c \
 
 SRCC = $(patsubst %.c,srcs/%.c,$(SRC))
 
